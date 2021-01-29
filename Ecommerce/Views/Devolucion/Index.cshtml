@@ -1,0 +1,74 @@
+﻿@model Ecommerce.Models.Devoluciones
+@using Ecommerce.Models
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Motivo Devoluciones</h2>
+
+<div class="container-fluid">
+    <div class="row m-5 table-responsive">
+        <table class="table shadow table-dark">
+            <thead class=" text-center">
+                <tr>
+                    <th scope="col">No. Devolucion</th>
+                    <th scope="col">Cliente</th>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Motivo</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+                <!--
+                <tr>
+                    <th scope="col"><input class="input-table" type="text" /></th>
+                    <th scope="col"><input class="input-table" type="text" /></th>
+                    <th scope="col"><input class="input-table" type="text" /></th>
+                    <th scope="col"><input class="input-table" type="text" /></th>
+                    <th scope="col"><input class="input-table" type="text" /></th>
+                    <th></th>
+                </tr>-->
+            </thead>
+            <tbody class="text-center">
+                @foreach (Devoluciones dev in ViewBag.devoluciones)
+                {
+
+                    <tr>
+                        <td>@dev.Id</td>
+                        <td>@dev.Cliente.Nombre</td>
+                        <td>@dev.Producto.Nombre</td>
+                        <td>@dev.motivo </td>
+                        <td>
+                            @if(dev.status == 1)
+                            {
+                                @: Dar respuesta
+                            }else if (dev.status == 2)
+                            {
+                                @: Aceptada
+                            }
+                            else
+                            {
+                                @: Rechazada
+                            }
+                        </td>
+                        <td class="text-center">
+                            @if (dev.status == 1)
+                            {
+                                <!--<a href="@Url.Action("Historial","Devolucion")" class="btn btn-success">Aceptar</a>-->
+                                @Html.ActionLink("Aceptar", "Aceptar", new { id = dev.Id }, new { @class = "btn btn-success" })
+                                <!--<a href="@Url.Action("MotivosAdmin","Devolucion")" class="btn btn-warning">Aceptar</a>-->
+                                @Html.ActionLink("Rechazar", "Rechazar", new { id = dev.Id }, new { @class = "btn btn-warning" })
+                            }
+                            else
+                            {
+                                @: Verifica historial
+                            }
+                        </td>
+                    </tr>
+                }
+
+
+                </tbody>
+        </table>
+    </div>
+</div>

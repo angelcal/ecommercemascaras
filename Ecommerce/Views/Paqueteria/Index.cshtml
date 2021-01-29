@@ -1,0 +1,90 @@
+﻿@model Ecommerce.Models.Ventas
+@using Ecommerce.Models
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Envios</h2>
+
+<div class="container-fluid">
+    <div class="row m-5 table-responsive">
+        <table class="table shadow table-dark">
+            <thead class=" text-center">
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Cliente</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Fecha de compra</th>
+                    <th scope="col">Total de compra</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+                <!--
+                <tr>
+                    <th scope="col"><input class="input-table" type="text" /></th>
+                    <th scope="col"><input class="input-table" type="text" /></th>
+                    <th scope="col"><input class="input-table" type="text" /></th>
+                    <th scope="col"><input class="input-table" type="text" /></th>
+                    <th scope="col"><input class="input-table" type="text" /></th>
+                    <th></th>
+                </tr>-->
+            </thead>
+            <tbody class="text-center">
+                @foreach (Ventas venta in ViewBag.ventas)
+                {
+                    <tr>
+                        <td>@venta.Id</td>
+                        <td>@venta.Cliente.Nombre</td>
+                        <td>
+                            @if (venta.Status==1)
+                            {
+                                @: Pendiente de envio
+                            }else if (venta.Status==2)
+                            {
+                                @: En ruta
+                            }
+                            else
+                            {
+                                @: Entregado
+                            }
+                        </td>
+                        <td>
+
+                            @if (venta.Status == 1)
+                            {
+
+                                @: Fecha de compra @venta.FechaVenta
+                            }
+                            else if (venta.Status == 2)
+                            {
+                                @: Enviado el: @venta.FechaVenta
+                            }
+                            else
+                            {
+                                @: Entregado el: @venta.FechaVenta
+                            }
+                        </td>
+                        <td>@venta.Total</td>
+                        <td class="text-center">
+                            @if (venta.Status == 2)
+                            {
+                                @: En ruta. Verifique Paqueteria
+                            }
+                            else if (venta.Status == 3)
+                            {
+                                @: Entregado
+                            }
+                            else
+                            {
+                                <a href="@Url.Action("Paquete","Paqueteria",new { Id = venta.Id})">
+                                    <i class="fas fa-fw fa-paper-plane "></i>
+                                    Enviar
+                                </a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

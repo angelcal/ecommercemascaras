@@ -1,0 +1,62 @@
+﻿@using Ecommerce.Models
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Detalles de compra</h2>
+
+<form>
+    <p>
+        <button class="btn btn-light" formaction="/Compras/Index">Regresar al historial</button>
+    </p>
+    <p><strong>Factura: </strong> </p>
+    <br />
+    <p><strong>Proveedor: </strong> </p>
+    <br />
+    <p><strong>Estado: </strong> </p>
+</form>
+<table class="table">
+    <tr>
+  <th>
+      Producto
+  </th>
+        <th>
+            Cantidad
+        </th>
+        <th>
+            Subtotal
+        </th>
+        <th>
+            Fecha de vencimiento
+        </th>
+        <th>
+
+        </th>
+
+    </tr>
+
+@foreach (DetalleCompras item in ViewBag.Detalles_Compra) {
+    <tr>
+        <td>
+            @item.Productos.Nombre
+        </td>
+        <td>
+            @item.Cantidad
+        </td>
+
+        <td>
+            @item.SubTotal
+        </td>
+        <td>
+            @item.Fecha_vencimiento
+        </td>
+        <td>
+            <button class="btn btn-success" formaction="/Compras/Index">Pagar</button>
+        </td>
+    </tr>
+}
+
+</table>
+

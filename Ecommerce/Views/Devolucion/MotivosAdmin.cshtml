@@ -1,0 +1,62 @@
+﻿@model Ecommerce.Models.ExplicaDevolucion
+@using Ecommerce.Models
+
+@{
+    ViewBag.Title = "MotivosAdmin";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+}
+
+<h2>Motivos</h2>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+
+        @foreach (Devoluciones dev in ViewBag.devoluciones)
+        {
+            <p><strong>Orden de Devolucion: </strong>@dev.Id </p>
+            <br />
+            <p><strong>Cliente: </strong>@dev.Cliente.Nombre </p>
+            <br />
+            <p><strong>Producto: </strong>@dev.Producto.Nombre </p>
+            <br />
+            <p>
+                <strong>Status: </strong>
+                @if (dev.status == 2)
+                {
+                    @: Aceptada
+                }
+                else if (dev.status == 3)
+                {
+                    @: Rechazada
+                }
+                else
+                {
+                    @: Selecciona
+                }
+            </p>
+            <br />
+
+        }
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.explicacion, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.EditorFor(model => model.explicacion, new { htmlAttributes = new { @class = "form-control", @required = true, @placeholder = "Motivo" } })
+                    @Html.ValidationMessageFor(model => model.explicacion, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Guardar" class="btn btn-success" />
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+    <div class="col-md-1"></div>
+</div>
+

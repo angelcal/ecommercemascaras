@@ -1,0 +1,80 @@
+﻿@using Ecommerce.Models
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Detalles de Compra</h2>
+<form>
+    <p>
+        <button class="btn btn-light" formaction="/Factura/Index">Regresar al historial</button>
+    </p>
+    @foreach (DetalleCompras fac in ViewBag.Detalles_Compra)
+    {
+        <p><strong>Factura: </strong>@fac.Compras.Id </p>
+        <br />
+        <p><strong>Proveedor: </strong>@fac.Compras.Provedores.Nombre </p>
+        <br />
+        <p>
+            <strong>Estado: </strong>
+            @if (fac.Compras.Status == 1)
+            {
+                @: Pendiente
+            }
+            else
+            {
+                @: Pagada
+            }
+        </p>
+        break;
+    }
+</form>
+
+<table class="table">
+    <tr>
+        <th>
+            Producto
+        </th>
+        <th>
+            Cantidad
+        </th>
+        <th>
+            Subtotal
+        </th>
+        <th>
+            Fecha de vencimiento
+        </th>
+
+
+    </tr>
+
+    @foreach (DetalleCompras item in ViewBag.Detalles_Compra)
+    {
+        <tr>
+            <td>
+                @item.Productos.Nombre
+            </td>
+            <td>
+                @item.Cantidad
+            </td>
+
+            <td>
+                @item.SubTotal
+            </td>
+            <td>
+                @item.Fecha_vencimiento
+            </td>
+
+        </tr>
+    }
+
+</table>
+
+<form>
+    @foreach (DetalleCompras fac in ViewBag.Detalles_Compra)
+    {
+        @Html.ActionLink("Pago", "Pago", new { id = fac.Compras.Id }, new { @class = "btn btn-success" })
+        break;
+    }
+</form>

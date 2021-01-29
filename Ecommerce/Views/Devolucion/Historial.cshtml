@@ -1,0 +1,80 @@
+﻿@model Ecommerce.Models.ExplicaDevolucion
+@using Ecommerce.Models
+@{
+    ViewBag.Title = "Historial";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Historial de Devoluciones</h2>
+
+<div class="container-fluid">
+    <div class="row m-5 table-responsive">
+        <table class="table shadow table-dark">
+            <thead class=" text-center">
+                <tr>
+                    <th scope="col">No. Devolucion</th>
+                    <th scope="col">Cliente</th>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Motivo de Devolucion</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Razon de DEvolucion</th>
+                </tr>
+                <!--
+                <tr>
+                    <th scope="col"><input class="input-table" type="text" /></th>
+                    <th scope="col"><input class="input-table" type="text" /></th>
+                    <th scope="col"><input class="input-table" type="text" /></th>
+                    <th scope="col"><input class="input-table" type="text" /></th>
+                    <th scope="col"><input class="input-table" type="text" /></th>
+                    <th></th>
+                </tr>-->
+            </thead>
+            <tbody class="text-center">
+                @foreach (ExplicaDevolucion dev in ViewBag.devolucionesexp)
+                {
+
+                    <tr>
+                        <td>@dev.Devolucion.Id</td>
+                        <td>@dev.Devolucion.Cliente.Nombre</td>
+                        <td>@dev.Devolucion.Producto.Nombre</td>
+                        <td>@dev.Devolucion.motivo </td>
+                        <td>
+                            @if (dev.Devolucion.status == 1)
+                            {
+                                @: Dar respuesta
+                            }
+                            else if (dev.Devolucion.status == 2)
+                            {
+                                @: Devolucion Aceptada
+                            }
+                            else
+                            {
+                                @: Devolucion Rechazada
+                            }
+                        </td>
+                        <td class="text-center">
+                            @if (dev.Devolucion.status == 2)
+                            {
+                                @: Aceptado por: @dev.explicacion
+                            }
+                            else if (dev.Devolucion.status == 3)
+                            {
+                                @: Rechazada por: @dev.explicacion
+                            }
+                            else
+                            {
+                                @: Explica la Razon
+                                
+                                <a href="@Url.Action("Index","Devolucion")" class="btn btn-success">Seguimiento Devolucion</a>
+                            }
+                        </td>
+                    </tr>
+                }
+
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+

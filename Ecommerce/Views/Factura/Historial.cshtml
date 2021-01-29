@@ -1,0 +1,41 @@
+﻿@model Ecommerce.Models.Compras
+@using Ecommerce.Models
+
+@{
+    ViewBag.Title = "Historial";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Facturas Pagadas</h2>
+
+<table class="table">
+    <tr>
+        <th>Factura</th>
+        <th>Fecha de Pago</th>
+        <th>Nombre del Proveedor</th>
+        <th>Total</th>
+        <th>Estado</th>
+        
+    </tr>
+    @foreach (Compras factura in ViewBag.facturas)
+    {
+        <tr>
+            <td>@factura.Id</td>
+            <td>@factura.FechaCompra</td>
+            <td>@factura.Provedores.Nombre</td>
+            <td>@factura.Total</td>
+            <td>
+                @if (factura.Status == 2)
+                {
+                    @: Pagado
+                }
+                else
+                {
+                    @: Tu que haces aqui
+                }
+            </td>
+            
+        </tr>
+    }
+</table>
+

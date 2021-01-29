@@ -1,0 +1,71 @@
+﻿@model Ecommerce.Models.Paqueteria
+@using Ecommerce.Models
+@{
+    ViewBag.Title = "Paqueteria";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Paqueteria</h2>
+
+<div class="container-fluid">
+    <div class="row m-5 table-responsive">
+        <table class="table shadow table-dark">
+            <thead class=" text-center">
+                <tr>
+                    <th scope="col">Clave de envio</th>
+                    <th scope="col">Cliente</th>
+                    <th scope="col">Paqueteria</th>
+                    <th scope="col">Fecha de envio</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Entrega</th>
+                </tr>
+                <!--
+                <tr>
+                    <th scope="col"><input class="input-table" type="text" /></th>
+                    <th scope="col"><input class="input-table" type="text" /></th>
+                    <th scope="col"><input class="input-table" type="text" /></th>
+                    <th scope="col"><input class="input-table" type="text" /></th>
+                    <th scope="col"><input class="input-table" type="text" /></th>
+                    <th></th>
+                </tr>-->
+            </thead>
+            <tbody class="text-center">
+                @foreach (Paqueteria dev in ViewBag.paqueteria)
+                {
+
+                    <tr>
+                        <td>@dev.orden_paq</td>
+                        <td>@dev.Venta.Cliente.Nombre</td>
+                        <td>@dev.nombre</td>
+                        <td>@dev.FechaEnvio </td>
+                        <td>
+                            @if (dev.status == 1)
+                            {
+                                @: En ruta
+                            }
+                            else
+                            {
+                                @: Entregado
+                            }
+                        </td>
+                        <td class="text-center">
+                            @if (dev.status == 2)
+                            {
+                                @: Entregado @dev.FechaEntrega
+                            }
+                            else
+                            {
+                            <a href="@Url.Action("Entregar","Paqueteria",new { Id = dev.Venta.Id})">
+                                <i class="fas fa-fw fa-paper-plane "></i>
+                                Entregar
+                            </a>                                
+                            }
+                        </td>
+                    </tr>
+                }
+
+
+            </tbody>
+        </table>
+    </div>
+</div>

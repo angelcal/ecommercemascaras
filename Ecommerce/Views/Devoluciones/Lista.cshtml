@@ -1,0 +1,77 @@
+﻿@model IEnumerable<Ecommerce.Models.ExplicaDevolucion>
+@{
+    ViewBag.Title = "Lista";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var explicadevo = ViewBag.explicadevo;
+}
+
+<div class="container-fluid">
+    <div class="row m-5 table-responsive">
+        <table class="table shadow table-dark">
+            <thead class=" text-center">
+                <tr>
+                    <th scope="col">No. Devolucion</th>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Motivo</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Explicacion</th>
+
+                </tr>
+                <!--
+                <tr>
+                    <th scope="col"><input class="input-table" type="text" /></th>
+                    <th scope="col"><input class="input-table" type="text" /></th>
+                    <th scope="col"><input class="input-table" type="text" /></th>
+                    <th scope="col"><input class="input-table" type="text" /></th>
+                    <th scope="col"><input class="input-table" type="text" /></th>
+                    <th></th>
+                </tr>-->
+            </thead>
+            <tbody class="text-center">
+                @foreach (var explica in explicadevo)
+                {
+                    <tr>
+                        <td>@explica.devoluciones.Id</td>
+
+                        <td>@explica.devoluciones.Producto.Nombre</td>
+                        <td>@explica.devoluciones.motivo </td>
+                        <td>
+                            @if (explica.devoluciones.status == 1)
+                            {
+                                @: En proceso
+                            }
+                            else if (explica.devoluciones.status == 2)
+                            {
+                                @: Aceptada
+                            }
+                            else
+                            {
+                                @:Rechazada
+                            }
+                        </td>
+                        <td>
+                            
+                            @if (explica.devoluciones.status == 1)
+                            {
+                                @: Procesando Peticion
+                            }
+                            else if (explica.devoluciones.status == 2)
+                            {
+                                @: Solicitud aceptada por: @explica.Explica.explicacion
+                            }
+                            else
+                            {
+                                @: Solicitud rechazada por: @explica.Explica.explicacion
+                            }
+                        </td>
+
+                    </tr>
+
+                }
+                </tbody>
+                
+        </table>
+    </div>
+</div>
+
+

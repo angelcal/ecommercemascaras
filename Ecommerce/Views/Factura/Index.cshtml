@@ -1,0 +1,42 @@
+﻿@model Ecommerce.Models.Compras
+@using Ecommerce.Models
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Pago a proveedores</h2>
+
+<table class="table">
+    <tr>
+        <th>Fecha de Pago</th>
+        <th>Nombre del Proveedor</th>
+        <th>Factura</th>
+        <th>Estado</th>
+        <th>Tipo de pago</th>
+        <th>Total</th>
+        <th></th>
+    </tr>
+    @foreach (Compras factura in ViewBag.facturas)
+    {
+    <tr>
+        <td>@factura.FechaCompra</td>
+        <td>@factura.Provedores.Nombre</td>
+        <td>@factura.Id</td>
+        <td>
+            @if (factura.Status == 1)
+            {
+                @: Pendiente
+            }
+            else
+            {
+                @: Tu que haces aqui
+            }
+        </td>
+        <td>Contado</td>
+        <td>@factura.Total</td>
+        <td>@Html.ActionLink("Detalles", "Details", new { id = factura.Id })</td>
+    </tr>
+    }
+</table>
